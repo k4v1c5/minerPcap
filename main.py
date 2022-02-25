@@ -59,14 +59,14 @@ if __name__ == "__main__":
                         help="Whether to print POST raw data, such as passwords, search queries, etc.")
     # parse arguments
     args = parser.parse_args()
-    print(repr(args))
+
     if args.iface is not None:
         source = args.iface
     elif args.file is not None:
         source = args.file
 
     show_raw = args.show_raw
-    sniff_packets(args.iface, source)
+    # sniff_packets(args.iface, source)
 
     # pcap = sys.argv[1]
     srcs = []
@@ -76,23 +76,28 @@ if __name__ == "__main__":
     a = scapy.rdpcap(source)
     # pkt = a[0]
     for pkt in a:
-        srcs.append(pkt.payload.fields.get('src'))
-        dsts.append(pkt.payload.fields.get('dst'))
-        headers.append(a.stats)
-        srcs1 = list(set(srcs))
-        dsts1 = list(set(dsts))
-        unionList = list(set(srcs1) | set(dsts1))
+        print(str(repr(pkt.payload.dport)))
+        # srcs.append(str(pkt.payload.fields.get('src'))+":"+str(pkt.payload.sport))
+        # dsts.append(str(pkt.payload.fields.get('dst'))+":"+str(pkt.payload.dport))
+        # headers.append(a.stats)
+        # srcs1 = list(set(srcs))
+        # dsts1 = list(set(dsts))
+        # unionList = list(set(srcs1) | set(dsts1))
+
+
 
     # print(repr(src))
     # print(repr(dst))
-    print("Forrás IP címek:")
-    listprint(srcs1)
 
-    print("Cél IP címek:")
-    listprint(dsts1)
+    # print("Forrás IP címek:")
+    # listprint(srcs1)
+    #
+    # print("Cél IP címek:")
+    # listprint(dsts1)
+    #
+    # print("Union list:")
+    # listprint(unionList)
 
-    print("Union list:")
-    listprint(unionList)
 
 # srcs = []
 # dsts = []
